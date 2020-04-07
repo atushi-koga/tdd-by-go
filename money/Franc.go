@@ -1,13 +1,13 @@
 package money
 
 type franc struct {
-	amount int
+	m money
 }
 
 func (f franc) times(value int) franc {
-	return franc{amount: f.amount * value}
+	return franc{m: f.m.times(value)}
 }
 
-func (f franc) equal(other franc) bool{
-	return f.amount == other.amount
+func (f franc) equal(o franc) bool{
+	return f.m.equal(o.m)
 }

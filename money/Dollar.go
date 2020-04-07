@@ -1,13 +1,13 @@
 package money
 
 type dollar struct {
-	amount int
+	m money
 }
 
 func (d dollar) times(value int) dollar {
-	return dollar{amount: d.amount * value}
+	return dollar{m: d.m.times(value)}
 }
 
-func (d dollar) equal(other dollar) bool {
-	return d.amount == other.amount
+func (d dollar) equal(o dollar) bool {
+	return d.m.equal(o.m)
 }
