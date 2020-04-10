@@ -4,6 +4,16 @@ import (
 	"testing"
 )
 
+func TestSimpleAddition(t *testing.T) {
+	fiveDollar := money{currency: "USD", amount: 5}
+	expression := fiveDollar.plus(fiveDollar)
+	bank := bank{}
+	reduced := bank.reduce(expression, "USD")
+	if(reduced != money{currency: "USD", amount: 10}){
+		t.Error("fail")
+	}
+}
+
 func TestMoneyMultiplication(t *testing.T) {
 	// @todo: 構造体同士の比較はどのようにされる?
 	if (money{currency: "USD", amount: 5}).times(2) != (money{currency: "USD", amount: 10}) {
