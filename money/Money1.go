@@ -1,13 +1,21 @@
 package money
 
+type currency string
+
+type amount int
+
 type money struct {
-	amount int
+	currency
+	amount
 }
 
-func (m money) times(value int) money {
-	return money{amount: m.amount * value}
+func (m money) times(amount amount) money {
+	return money{
+		currency: m.currency,
+		amount: m.amount * amount,
+	}
 }
 
 func (m money) equal(other money) bool {
-	return m.amount == other.amount
+	return m.currency == other.currency && m.amount == other.amount
 }
