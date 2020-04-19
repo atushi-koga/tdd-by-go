@@ -6,28 +6,22 @@ type currency string
 
 type amount int
 
+type expression interface {
+	reduce(to currency) money
+}
+
 type money struct {
 	currency
 	amount
 }
 
-type expression interface {
-	augendValue() money
-	addendValue() money
-	reduce(to currency) money
+func (m money) reduce(to currency) money {
+	return m
 }
 
 type sum struct {
 	augend money
 	addend money
-}
-
-func (s sum) augendValue() money {
-	return s.augend
-}
-
-func (s sum) addendValue() money {
-	return s.addend
 }
 
 func (s sum) reduce(to currency) money {

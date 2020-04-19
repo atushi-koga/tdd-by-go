@@ -38,11 +38,16 @@ func TestEqual(t *testing.T) {
 func TestPlusReturnsSum(t *testing.T) {
 	fiveDollar := money{currency: "USD", amount: 5}
 	threeDollar := money{currency: "USD", amount: 3}
-	summed := fiveDollar.plus(threeDollar)
-	if (summed.augendValue() != money{currency: "USD", amount: 5}) {
+	expected := sum{augend: fiveDollar, addend: threeDollar}
+	if fiveDollar.plus(threeDollar) != expected {
 		t.Error("fail")
 	}
-	if (summed.addendValue() != money{currency: "USD", amount: 3}) {
+}
+
+func TestReduceMoney(t *testing.T) {
+	bank := bank{}
+	threeDollar := money{currency: "USD", amount: 3}
+	if (bank.reduce(threeDollar, "USD") != threeDollar) {
 		t.Error("fail")
 	}
 }
