@@ -9,7 +9,7 @@ func TestSimpleAddition(t *testing.T) {
 	expression := fiveDollar.plus(fiveDollar)
 	bank := bank{}
 	reduced := bank.reduce(expression, "USD")
-	if(reduced != money{currency: "USD", amount: 10}){
+	if (reduced != money{currency: "USD", amount: 10}) {
 		t.Error("fail")
 	}
 }
@@ -31,6 +31,18 @@ func TestEqual(t *testing.T) {
 	}
 
 	if ((money{currency: "USD", amount: 3})).equal((money{currency: "CHF", amount: 3})) != false {
+		t.Error("fail")
+	}
+}
+
+func TestPlusReturnsSum(t *testing.T) {
+	fiveDollar := money{currency: "USD", amount: 5}
+	threeDollar := money{currency: "USD", amount: 3}
+	summed := fiveDollar.plus(threeDollar)
+	if (summed.augendValue() != money{currency: "USD", amount: 5}) {
+		t.Error("fail")
+	}
+	if (summed.addendValue() != money{currency: "USD", amount: 3}) {
 		t.Error("fail")
 	}
 }

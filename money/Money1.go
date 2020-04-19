@@ -1,5 +1,7 @@
 package money
 
+// ・確認事項
+
 type currency string
 
 type amount int
@@ -10,11 +12,24 @@ type money struct {
 }
 
 type expression interface {
+	augendValue() money
+	addendValue() money
+}
 
+type sum struct {
+	augend money
+	addend money
+}
+
+func (s sum) augendValue() money {
+	return s.augend
+}
+
+func (s sum) addendValue() money {
+	return s.addend
 }
 
 type bank struct {
-
 }
 
 func (b bank) reduce(e expression, c currency) money {
@@ -25,16 +40,13 @@ func (b bank) reduce(e expression, c currency) money {
 }
 
 func (m money) plus(m2 money) expression {
-	return money{
-		currency: m.currency,
-		amount:   m.amount + m2.amount,
-	}
+	return sum{augend: m, addend: m2}
 }
 
 func (m money) times(amount amount) money {
 	return money{
 		currency: m.currency,
-		amount: m.amount * amount,
+		amount:   m.amount * amount,
 	}
 }
 
