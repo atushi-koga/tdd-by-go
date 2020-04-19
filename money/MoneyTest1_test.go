@@ -54,7 +54,7 @@ func TestReduceMoney(t *testing.T) {
 
 func TestReduceMoneyDifferentCurrency(t *testing.T) {
 	bank := bank{}
-	bank.addRate("CHF", "USD", 2)
+	bank = bank.addRate(currencyPair{from: "CHF", to: "USD"}, 2)
 	result := bank.reduce(money{currency: "CHF", amount: 2}, "USD")
 	if (result != money{currency: "USD", amount: 1}) {
 		t.Error("fail")
