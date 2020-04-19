@@ -5,11 +5,11 @@ import (
 )
 
 func TestSimpleAddition(t *testing.T) {
-	fiveDollar := money{currency: "USD", amount: 5}
-	expression := fiveDollar.plus(fiveDollar)
+	fourDollar := money{currency: "USD", amount: 4}
+	sum := fourDollar.plus(fourDollar)
 	bank := bank{}
-	reduced := bank.reduce(expression, "USD")
-	if (reduced != money{currency: "USD", amount: 10}) {
+	reduced := bank.reduce(sum, "USD")
+	if (reduced != money{currency: "USD", amount: 8}) {
 		t.Error("fail")
 	}
 }

@@ -14,6 +14,7 @@ type money struct {
 type expression interface {
 	augendValue() money
 	addendValue() money
+	reduce(to currency) money
 }
 
 type sum struct {
@@ -29,14 +30,18 @@ func (s sum) addendValue() money {
 	return s.addend
 }
 
+func (s sum) reduce(to currency) money {
+	return money{
+		currency: to,
+		amount:   s.augend.amount + s.addend.amount,
+	}
+}
+
 type bank struct {
 }
 
 func (b bank) reduce(e expression, c currency) money {
-	return money{
-		currency: "USD",
-		amount:   10,
-	}
+	return e.reduce(c)
 }
 
 func (m money) plus(m2 money) expression {
