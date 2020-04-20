@@ -7,6 +7,7 @@ type currency string
 type expression interface {
 	reduce(b bank, to currency) money
 	plus(e expression) expression
+	times(multiplier int) expression
 }
 
 // @todo: amountフィールドは、intを拡張した独自型にしたい
@@ -29,10 +30,10 @@ func (m money) plus(e expression) expression {
 	return sum{augend: m, addend: e}
 }
 
-func (m money) times(amount int) expression {
+func (m money) times(multiplier int) expression {
 	return money{
 		currency: m.currency,
-		amount:   m.amount * amount,
+		amount:   m.amount * multiplier,
 	}
 }
 
@@ -47,6 +48,13 @@ type sum struct {
 
 func (s sum) plus(addend expression) expression {
 	return sum{augend: s, addend: addend}
+}
+
+func (s sum) times(multiplier int) expression {
+	return sum{
+		augend: s.augend.times(multiplier),
+		addend: s.addend.times(multiplier),
+	}
 }
 
 func (s sum) reduce(b bank, to currency) money {

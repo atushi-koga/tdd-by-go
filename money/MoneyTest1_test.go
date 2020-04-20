@@ -83,3 +83,15 @@ func TestSumPlusMoney(t *testing.T) {
 		t.Error("fail")
 	}
 }
+
+func TestSumTimes(t *testing.T) {
+	fiveDollar := money{currency: "USD", amount: 5}
+	tenFranc := money{currency: "CHF", amount: 10}
+	sum := sum{augend: fiveDollar, addend: tenFranc}
+	actual := sum.times(2)
+	bank := bank{}
+	bank = bank.addRate(currencyPair{from: "CHF", to: "USD"}, 2)
+	if (bank.reduce(actual, "USD") != money{currency: "USD", amount: 20}) {
+		t.Error("fail")
+	}
+}
