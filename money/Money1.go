@@ -45,9 +45,8 @@ type sum struct {
 	addend expression
 }
 
-// @todo: とりあえず空実装
 func (s sum) plus(addend expression) expression {
-	return nil
+	return sum{augend: s, addend: addend}
 }
 
 func (s sum) reduce(b bank, to currency) money {
